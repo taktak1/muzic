@@ -575,15 +575,17 @@ def F(file_name, conditional_tracks, content_tracks, condition_inst, chord_from_
     # conditional_bool = conditional_bool[:,:1280]
 
     # if trunc:
-    datum = datum[:,:512]
-    conditional_bool = conditional_bool[:,:512]
+
+    size=1500 #512
+    datum = datum[:,:size]
+    conditional_bool = conditional_bool[:,:size]
 
     not_empty_pos = (torch.tensor(np.array(datum)) != empty_index).float()
 
     have_cond = True
     
     for i in range(14):
-        if with_chord and conditional_tracks[i] == 1 and ((datum[i] == pad_index).sum() + (datum[i] == empty_index).sum()) == min(512,figure_size):
+        if with_chord and conditional_tracks[i] == 1 and ((datum[i] == pad_index).sum() + (datum[i] == empty_index).sum()) == min(size,figure_size):
             have_cond = False
             break
 
